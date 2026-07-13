@@ -59,9 +59,10 @@ CampaignAutomation
 - Reset application data
 - Verify dashboard metrics after reset
 
-### API Test
+### API Tests
 
-- Verify Audience Estimate API returns the correct audience count and supported channels.
+- Validate the Audience Estimate API by verifying the estimated audience count and supported channels.
+- Validate the Create Campaign API by verifying successful campaign creation, response status, and returned campaign details.
 
 ---
 
@@ -142,6 +143,13 @@ Low
 
 ---
 
+## Observations
+
+- The Create Campaign API allows multiple campaigns with the same name by assigning a unique campaign ID to each request.
+- Campaign data is persisted until the application is reset using the provided reset functionality.
+
+---
+
 ## Future Improvements
 
 If more time was available, I would add:
@@ -150,7 +158,6 @@ If more time was available, I would add:
 - Parallel test execution
 - API response schema validation
 - Reporting using Allure or Extent Reports
-- CI/CD integration using GitHub Actions or Jenkins
 - Data-driven testing using JSON or Excel
 
 ---
