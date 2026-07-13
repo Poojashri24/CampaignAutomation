@@ -1,0 +1,19 @@
+# Maven build files
+target/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# Test reports
+test-output/
+surefire-reports/
+
+# Screenshots
+screenshots/
+
+# OS files
+Thumbs.db
+.DS_Store
