@@ -52,7 +52,7 @@ CampaignAutomation
 - Validate campaign creation with missing mandatory fields
 - Verify audience estimate for selected audience
 - Launch a draft campaign
-- Verify Sent campaigns cannot be launched
+- Verify launch functionality for draft campaigns
 - Filter campaigns by Status
 - Filter campaigns by Channel
 - Clear applied filters
@@ -62,8 +62,10 @@ CampaignAutomation
 
 ### API Tests
 
-- Validate the Audience Estimate API by verifying the estimated audience count and supported channels.
-- Validate the Create Campaign API by verifying successful campaign creation, response status, and returned campaign details.
+- Validate Audience Estimate API response.
+- Validate successful Campaign Creation API.
+- Validate invalid send mode returns a validation error.
+- Validate invalid audience segment returns a validation error.
 
 ---
 
@@ -99,6 +101,28 @@ Run API Test
 mvn test "-Dtest=ApiTest"
 ```
 
+## Defect Reproduction
+
+The project includes a separate defect reproduction test to demonstrate a confirmed application issue.
+
+Run the following command:
+
+```bash
+mvn test "-Dtest=DefectTest"
+```
+
+**Expected Result**
+
+This test is expected to **fail** because it reproduces a confirmed defect in the application.
+
+**Defect Verified**
+
+- Analytics dashboard does not update the **Sent** campaign count after campaign status changes.
+- Expected Sent count: **2**
+- Actual Sent count: **1**
+
+The main regression suite and API tests are independent of this defect reproduction test and should pass successfully.
+
 ---
 
 ## Assumptions
@@ -106,32 +130,47 @@ mvn test "-Dtest=ApiTest"
 - The application should be reset before executing the test suite.
 - Seeded campaign data is restored using the Reset option.
 - Audience estimates are fixed according to the provided business data.
-- Campaign launch changes status from Draft to Queued before delivery.
+- Campaign launch follows the business rules defined in the application.
 
 ---
 
 ## Defects Found
 
-### 1: Past Scheduled Date Accepted
+### 1. Past Scheduled Date Accepted (UI)
 
-Expected:
-Scheduled campaigns should accept only a future date and time.
+**Expected**
+Scheduled campaigns should only accept a future date and time.
 
-Actual:
-The application accepts past dates without displaying a validation error.
+**Actual**
+The UI allows creation of a scheduled campaign with a past date without displaying a validation error.
 
-Severity:
+**Severity**
 Medium
 
-### 2. Campaign Launch Status
+---
+
+### 2. Past Scheduled Date Accepted (API)
+
+**Expected**
+The Create Campaign API should reject requests containing a past scheduled date with a validation error.
+
+**Actual**
+The API accepts the request and creates the campaign successfully (HTTP 201 Created), even when the scheduled date is in the past.
+
+**Severity**
+High
+
+---
+
+### 3. Analytics Dashboard Count Not Updated
 
 **Expected**
 
-After clicking Launch, the campaign status should change from Draft to Queued.
+The Analytics dashboard should display the current number of campaigns in each status.
 
 **Actual**
 
-Sometimes the status remains Draft for a few seconds before updating.
+After launching campaigns, the Execution page shows the updated campaign status, but the Analytics dashboard continues to display the old Sent count.
 
 **Severity**
 
@@ -139,21 +178,24 @@ Medium
 
 ---
 
-### 3. Filter Reset Behaviour
+### 4.Launch Button Enabled for Sent Campaign
 
 **Expected**
 
-Clearing a filter should immediately display all campaigns.
+Launch button should be disabled or hidden for a Sent campaign.
 
 **Actual**
 
-The application occasionally requires a short delay before displaying the full campaign list.
+Launch button remains enabled and clickable, but clicking it performs no action.
 
 **Severity**
 
 Low
 
 ---
+
+
+
 
 ## Observations
 
@@ -210,4 +252,4 @@ This approach keeps UI tests focused on business workflows while validating most
 
 The automation framework follows the Page Object Model (POM) to improve readability, maintainability and code reusability.
 
-Random test data is generated during execution to avoid duplicate campaign names, and screenshots are captured automatically whenever a test fails.
+Random test data is generated during execution to avoid duplicate campaign names, and Screenshots are captured automatically whenever a regression test fails.
