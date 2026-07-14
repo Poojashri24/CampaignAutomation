@@ -4,7 +4,7 @@
 
 This project is a test automation framework developed for a Campaign Management web application.
 
-The application enables users to create, validate, schedule, launch, and monitor marketing campaigns. The automation framework is built using Java, Playwright, TestNG, and Maven, following the Page Object Model (POM) design pattern for better maintainability and code reusability.
+The application enables users to create, validate, schedule, launch, and monitor marketing campaigns. The framework is built using Java, Playwright, TestNG, and Maven following the Page Object Model (POM) design pattern.
 
 The framework covers both UI and API testing to validate key business workflows, user interactions, and backend responses.
 
@@ -20,6 +20,16 @@ The framework covers both UI and API testing to validate key business workflows,
 - Apache Commons
 
 ---
+
+## Automation Design
+
+- Page Object Model (POM)
+- Reusable Base Test
+- Utility classes for random test data and screenshots
+- Separate UI, API, and defect reproduction tests
+
+- ---
+
 
 ## Project Structure
 
@@ -51,8 +61,7 @@ CampaignAutomation
 - Create a new campaign successfully
 - Validate campaign creation with missing mandatory fields
 - Verify audience estimate for selected audience
-- Launch a draft campaign
-- Verify launch functionality for draft campaigns
+- Launch a draft campaign and verify its status
 - Filter campaigns by Status
 - Filter campaigns by Channel
 - Clear applied filters
@@ -62,10 +71,10 @@ CampaignAutomation
 
 ### API Tests
 
-- Validate Audience Estimate API response.
-- Validate successful Campaign Creation API.
-- Validate invalid send mode returns a validation error.
-- Validate invalid audience segment returns a validation error.
+- Verify Audience Estimate API response.
+- Verify successful campaign creation through the API.
+- Verify invalid send mode returns a validation error.
+- Verify invalid audience segment returns a validation error.
 
 ---
 
@@ -178,7 +187,7 @@ Medium
 
 ---
 
-### 4.Launch Button Enabled for Sent Campaign
+### 4. Launch Button Enabled for Sent Campaign
 
 **Expected**
 
@@ -200,7 +209,7 @@ Low
 ## Observations
 
 - The Create Campaign API allows multiple campaigns with the same name by assigning a unique campaign ID to each request.
-- Campaign data is persisted until the application is reset using the provided reset functionality.
+- Campaign data persists between test executions until the application is reset.
 
 ---
 
@@ -252,4 +261,4 @@ This approach keeps UI tests focused on business workflows while validating most
 
 The automation framework follows the Page Object Model (POM) to improve readability, maintainability and code reusability.
 
-Random test data is generated during execution to avoid duplicate campaign names, and Screenshots are captured automatically whenever a regression test fails.
+Random test data is generated during execution to avoid duplicate campaign names. Screenshots are captured automatically whenever a regression test fails.
