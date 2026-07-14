@@ -21,7 +21,8 @@ public class BaseTest {
         browser = playwright.chromium().launch(
                 new BrowserType.LaunchOptions()
                         .setHeadless(false)
-                        .setSlowMo(1500)
+                        .setSlowMo(300
+                        )
         );
 
         context = browser.newContext(

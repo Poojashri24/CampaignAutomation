@@ -76,5 +76,30 @@ public class ValidationTest extends BaseTest {
         );
 
     }
+// @Test(priority = 4)
+// public void pastScheduleDateValidation() {
 
+//     ExecutionPage execution = new ExecutionPage(page);
+
+//     execution.openExecutionTab();
+
+//     execution.enterCampaignName("Past Date Test");
+
+//     execution.selectChannel("Email");
+
+//     execution.selectAudience("trial-users");
+
+//     execution.selectSendMode("scheduled");
+
+//     execution.enterSchedule("2024-01-01T10:00");
+
+//     execution.enterMessage("Testing past date validation");
+
+//     execution.createCampaign();
+
+//     Assert.assertTrue(
+//             execution.isErrorDisplayed(),
+//             "Application accepted a past scheduled date."
+//     );
+// }
 }

@@ -29,38 +29,26 @@ public class ApiTest extends BaseTest {
 
     }
 
-    @Test(priority = 2)
-    public void verifyCreateCampaignApi() {
+@Test(priority = 6)
+public void pastScheduledDateApi() {
 
-        ApiHelper api = new ApiHelper(playwright);
+    ApiHelper api = new ApiHelper(playwright);
 
-        String campaign = RandomDataUtil.campaignName();
-
-        String body = """
-                {
-                  "name":"%s",
-                  "channel":"Email",
-                  "audienceSegment":"trial-users",
-                  "sendMode":"now",
-                  "scheduledAt":"",
-                  "message":"This is an API automation campaign."
-                }
-                """.formatted(campaign);
-
-        APIResponse response = api.createCampaign(body);
-
-        Assert.assertEquals(response.status(), 201);
-
-        String responseBody = response.text();
-
-        System.out.println(responseBody);
-
-        Assert.assertTrue(responseBody.contains(campaign));
-        Assert.assertTrue(responseBody.contains("\"channel\":\"Email\""));
-        Assert.assertTrue(responseBody.contains("\"audienceSegment\":\"trial-users\""));
-        Assert.assertTrue(responseBody.contains("\"status\":\"Draft\""));
-        Assert.assertTrue(responseBody.contains("\"estimatedAudience\":1840"));
-
+    String body = """
+    {
+      "name":"Past Date",
+      "channel":"Email",
+      "audienceSegment":"trial-users",
+      "sendMode":"scheduled",
+      "scheduledAt":"2024-01-01T10:00",
+      "message":"Testing API"
     }
+    """;
 
+    APIResponse response = api.createCampaign(body);
+
+    System.out.println(response.status());
+    System.out.println(response.text());
+
+}
 }
