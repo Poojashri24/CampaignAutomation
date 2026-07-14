@@ -5,7 +5,6 @@ import com.microsoft.playwright.APIResponse;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import utils.ApiHelper;
-import utils.RandomDataUtil;
 
 public class ApiTest extends BaseTest {
 
