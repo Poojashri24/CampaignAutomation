@@ -83,7 +83,7 @@ CampaignAutomation
 Clone the repository
 
 ```bash
-git clone <repository-url>
+git clone git clone https://github.com/Poojashri24/CampaignAutomation.git
 ```
 
 Move into the project directory
