@@ -58,6 +58,7 @@ CampaignAutomation
 - Clear applied filters
 - Reset application data
 - Verify dashboard metrics after reset
+- Verify past date scheduling
 
 ### API Tests
 
@@ -111,7 +112,18 @@ mvn test "-Dtest=ApiTest"
 
 ## Defects Found
 
-### 1. Campaign Launch Status
+### 1: Past Scheduled Date Accepted
+
+Expected:
+Scheduled campaigns should accept only a future date and time.
+
+Actual:
+The application accepts past dates without displaying a validation error.
+
+Severity:
+Medium
+
+### 2. Campaign Launch Status
 
 **Expected**
 
@@ -127,7 +139,7 @@ Medium
 
 ---
 
-### 2. Filter Reset Behaviour
+### 3. Filter Reset Behaviour
 
 **Expected**
 
